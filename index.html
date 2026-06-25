@@ -3,267 +3,636 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jota Hosting - Clone</title>
+    <title>Jota Hosting - SA-MP / OPEN.MP</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+        
+        :root {
+            --bg: #0a0a0f;
+            --card: #12121a;
+            --green: #00ff88;
+            --green-dark: #00cc6a;
+            --text: #ffffff;
+            --text-muted: #8b8b9e;
+            --border: #1e1e2e;
         }
-
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
         body {
-            background-color: #0b0c10;
-            color: #ffffff;
-            padding: 20px;
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
         }
-
-        .header {
-            text-align: center;
-            padding: 40px 20px;
+        
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+        
+        /* Header */
+        header {
+            padding: 20px 0;
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            background: rgba(10, 10, 15, 0.9);
+            backdrop-filter: blur(10px);
+            z-index: 100;
         }
-
-        .header h1 {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-        }
-
-        .header h1 span {
-            color: #1fec7d;
-        }
-
-        .header p {
-            color: #8b8d99;
-            font-size: 1.1rem;
-        }
-
-        /* Container de Planos */
-        .plans-container {
-            max-width: 400px;
-            margin: 0 auto 40px auto;
-            background-color: #16171e;
-            border: 1px solid #23252f;
-            border-radius: 12px;
-            padding: 25px;
-        }
-
-        .plan-title {
-            color: #8b8d99;
-            font-size: 0.9rem;
-            font-weight: bold;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 5px;
-        }
-
-        .plan-price {
-            font-size: 2.5rem;
-            font-weight: bold;
-            margin-bottom: 20px;
-        }
-
-        .plan-price span {
-            font-size: 1rem;
-            color: #8b8d99;
-        }
-
-        .plan-features {
-            list-style: none;
-            margin-bottom: 25px;
-        }
-
-        .plan-features li {
-            margin-bottom: 12px;
-            color: #b3b5c6;
+        
+        .nav {
             display: flex;
+            justify-content: space-between;
             align-items: center;
         }
-
-        .plan-features li::before {
-            content: "✓";
-            color: #1fec7d;
-            margin-right: 10px;
-            font-weight: bold;
-        }
-
-        .btn-order {
-            display: block;
-            width: 100%;
-            background-color: #16171e;
-            color: #ffffff;
-            border: 1px solid #23252f;
-            padding: 15px;
-            text-align: center;
-            border-radius: 8px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: 0.2s;
-            text-decoration: none;
-        }
-
-        .btn-order:hover {
-            background-color: #23252f;
-        }
-
-        /* Modal / Formulário de Finalização */
-        .modal {
-            max-width: 400px;
-            margin: 0 auto;
-            background-color: #16171e;
-            border: 1px solid #23252f;
-            border-radius: 12px;
-            padding: 25px;
-        }
-
-        .modal h2 {
-            font-size: 1.5rem;
-            margin-bottom: 5px;
-        }
-
-        .modal p {
-            color: #8b8d99;
-            font-size: 0.9rem;
-            margin-bottom: 20px;
-        }
-
-        .modal p span {
-            color: #1fec7d;
-            font-weight: bold;
-        }
-
-        .form-group {
-            margin-bottom: 15px;
-        }
-
-        .form-group label {
-            display: block;
-            font-size: 0.8rem;
-            color: #8b8d99;
-            text-transform: uppercase;
-            font-weight: bold;
-            margin-bottom: 5px;
-            letter-spacing: 0.5px;
-        }
-
-        .form-group input, .form-group select, .form-group textarea {
-            width: 100%;
-            background-color: #0b0c10;
-            border: 1px solid #23252f;
-            color: #ffffff;
-            padding: 12px;
-            border-radius: 6px;
-            font-size: 1rem;
-        }
-
-        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
-            outline: none;
-            border-color: #1fec7d;
-        }
-
-        .btn-submit {
-            width: 100%;
-            background-color: #1fec7d;
-            color: #0b0c10;
-            border: none;
-            padding: 15px;
-            border-radius: 8px;
-            font-weight: bold;
-            font-size: 1rem;
-            cursor: pointer;
+        
+        .logo {
             display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+            font-size: 20px;
+        }
+        
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            background: var(--green);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
             justify-content: center;
+            font-size: 18px;
+            color: var(--bg);
+        }
+        
+        .logo span { font-size: 12px; color: var(--green); font-weight: 600; }
+        
+        .menu-btn {
+            background: var(--card);
+            border: 1px solid var(--border);
+            color: var(--text);
+            padding: 10px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+        }
+        
+        /* Hero */
+        .hero {
+            padding: 80px 0 60px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .badge {
+            display: inline-block;
+            background: rgba(0, 255, 136, 0.1);
+            color: var(--green);
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 24px;
+            border: 1px solid rgba(0, 255, 136, 0.2);
+        }
+        
+        .hero h1 {
+            font-size: 48px;
+            font-weight: 800;
+            margin-bottom: 16px;
+            line-height: 1.1;
+        }
+        
+        .hero h1 .highlight { color: var(--green); }
+        
+        .hero p {
+            color: var(--text-muted);
+            font-size: 16px;
+            max-width: 600px;
+            margin: 0 auto 32px;
+        }
+        
+        .btn-group {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            padding: 14px 28px;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s;
+            cursor: pointer;
+            border: none;
+            font-size: 15px;
+        }
+        
+        .btn-primary {
+            background: var(--green);
+            color: var(--bg);
+        }
+        
+        .btn-primary:hover {
+            background: var(--green-dark);
+            transform: translateY(-2px);
+        }
+        
+        .btn-secondary {
+            background: var(--card);
+            color: var(--text);
+            border: 1px solid var(--border);
+        }
+        
+        .btn-secondary:hover { border-color: var(--green); }
+        
+        /* Stats */
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1px;
+            background: var(--border);
+            margin: 60px 0;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        
+        .stat {
+            background: var(--bg);
+            padding: 40px 20px;
+            text-align: center;
+        }
+        
+        .stat h3 {
+            font-size: 36px;
+            color: var(--green);
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        
+        .stat p { color: var(--text-muted); font-size: 14px; }
+        
+        /* Produtos */
+        .section-title {
+            font-size: 14px;
+            color: var(--green);
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+        
+        .section-h2 {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+        
+        .section-desc {
+            color: var(--text-muted);
+            margin-bottom: 32px;
+        }
+        
+        .products {
+            display: grid;
+            gap: 12px;
+            margin-bottom: 60px;
+        }
+        
+        .product {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.2s;
+        }
+        
+        .product:hover { border-color: var(--green); }
+        
+        .product-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .product h4 { font-size: 16px; font-weight: 600; }
+        
+        .tag {
+            font-size: 11px;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-weight: 600;
+        }
+        
+        .tag-disponivel {
+            background: rgba(0, 255, 136, 0.15);
+            color: var(--green);
+        }
+        
+        .tag-breve {
+            background: rgba(255, 193, 7, 0.15);
+            color: #ffc107;
+        }
+        
+        /* Planos */
+        .plans {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 60px;
+        }
+        
+        .plan {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 32px;
+        }
+        
+        .plan-slots { color: var(--text-muted); font-size: 14px; margin-bottom: 8px; }
+        
+        .plan-price {
+            font-size: 48px;
+            font-weight: 800;
+            margin-bottom: 4px;
+        }
+        
+        .plan-price span { font-size: 24px; color: var(--text-muted); }
+        
+        .plan-period { color: var(--text-muted); font-size: 14px; margin-bottom: 24px; }
+        
+        .plan-features {
+            list-style: none;
+            margin-bottom: 24px;
+        }
+        
+        .plan-features li {
+            padding: 10px 0;
+            color: var(--text-muted);
+            display: flex;
             align-items: center;
             gap: 10px;
         }
-
-        .btn-submit:hover {
-            background-color: #17b35e;
+        
+        .plan-features li:before {
+            content: "✓";
+            color: var(--green);
+            font-weight: 700;
+        }
+        
+        /* Menu Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            padding: 20px;
+        }
+        
+        .modal.active { display: flex; align-items: center; justify-content: center; }
+        
+        .modal-content {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 32px;
+            max-width: 500px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+        
+        .modal-header h3 { font-size: 24px; }
+        
+        .close {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            font-size: 28px;
+            cursor: pointer;
+        }
+        
+        .form-group { margin-bottom: 20px; }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-muted);
+        }
+        
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 12px;
+            color: var(--text);
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+            outline: none;
+            border-color: var(--green);
+        }
+        
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 32px; }
+            .plans { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
+    <header>
+        <div class="container">
+            <div class="nav">
+                <div class="logo">
+                    <div class="logo-icon">⚡</div>
+                    <div>
+                        Jota Hosting<br>
+                        <span>SA-MP / OPEN.MP</span>
+                    </div>
+                </div>
+                <button class="menu-btn" onclick="toggleMenu()">☰ Menu</button>
+            </div>
+        </div>
+    </header>
 
-    <div class="header">
-        <h1>Seu servidor <br><span>no ar em minutos.</span></h1>
-        <p>Planos simples, preços justos e suporte de verdade.</p>
+    <section class="hero">
+        <div class="container">
+            <div class="badge">● HOSPEDAGEM SA-MP & OPEN.MP ● BRASIL</div>
+            <h1>Seu servidor<br><span class="highlight">no ar em minutos.</span></h1>
+            <p>Planos simples, preços justos e suporte de verdade. Infraestrutura dedicada para SA-MP e Open.MP com baixa latência no Brasil.</p>
+            <div class="btn-group">
+                <a href="#planos" class="btn btn-primary">Ver planos</a>
+                <a href="https://discord.gg/Qy3j9MxJ4X" target="_blank" class="btn btn-secondary">Discord</a>
+            </div>
+        </div>
+    </section>
+
+    <div class="container">
+        <div class="stats">
+            <div class="stat">
+                <h3>17</h3>
+                <p>Clientes ativos</p>
+            </div>
+            <div class="stat">
+                <h3>23</h3>
+                <p>Pedidos entregues</p>
+            </div>
+            <div class="stat">
+                <h3>99.9%</h3>
+                <p>Uptime</p>
+            </div>
+            <div class="stat">
+                <h3>18ms</h3>
+                <p>Ping médio BR</p>
+            </div>
+        </div>
+
+        <div id="produtos">
+            <p class="section-title">// PRODUTOS</p>
+            <h2 class="section-h2">Nossos serviços</h2>
+            <p class="section-desc">Escolha o produto que você precisa.</p>
+            
+            <div class="products">
+                <div class="product">
+                    <div class="product-info">
+                        <span>🎮</span>
+                        <h4>Host SA-MP</h4>
+                    </div>
+                    <span class="tag tag-disponivel">DISPONÍVEL</span>
+                </div>
+                <div class="product">
+                    <div class="product-info">
+                        <span>🤝</span>
+                        <h4>Revendas</h4>
+                    </div>
+                    <span class="tag tag-breve">EM BREVE</span>
+                </div>
+                <div class="product">
+                    <div class="product-info">
+                        <span>📜</span>
+                        <h4>Serviço Script</h4>
+                    </div>
+                    <span class="tag tag-breve">EM BREVE</span>
+                </div>
+                <div class="product">
+                    <div class="product-info">
+                        <span>⚔️</span>
+                        <h4>Game Modes</h4>
+                    </div>
+                    <span class="tag tag-breve">EM BREVE</span>
+                </div>
+            </div>
+        </div>
+
+        <div id="planos">
+            <div class="plans">
+                <div class="plan">
+                    <p class="plan-slots">100 SLOTS</p>
+                    <div class="plan-price">R$<span>7</span></div>
+                    <p class="plan-period">por mês</p>
+                    <ul class="plan-features">
+                        <li>Painel SAH</li>
+                        <li>Linux .so</li>
+                        <li>FTP incluso</li>
+                        <li>MySQL incluso</li>
+                    </ul>
+                    <button class="btn btn-primary" style="width:100%" onclick="openPedido('100 Slots - R$7/mês')">Contratar agora</button>
+                </div>
+                
+                <div class="plan">
+                    <p class="plan-slots">150 SLOTS</p>
+                    <div class="plan-price">R$<span>11</span></div>
+                    <p class="plan-period">por mês</p>
+                    <ul class="plan-features">
+                        <li>Painel SAH</li>
+                        <li>Linux .so</li>
+                        <li>FTP incluso</li>
+                        <li>MySQL incluso</li>
+                        <li>Anti-DDoS</li>
+                    </ul>
+                    <button class="btn btn-primary" style="width:100%" onclick="openPedido('150 Slots - R$11/mês')">Contratar agora</button>
+                </div>
+                
+                <div class="plan">
+                    <p class="plan-slots">200 SLOTS</p>
+                    <div class="plan-price">R$<span>15</span></div>
+                    <p class="plan-period">por mês</p>
+                    <ul class="plan-features">
+                        <li>Painel SAH</li>
+                        <li>Linux .so</li>
+                        <li>FTP incluso</li>
+                        <li>MySQL incluso</li>
+                        <li>Anti-DDoS</li>
+                    </ul>
+                    <button class="btn btn-primary" style="width:100%" onclick="openPedido('200 Slots - R$15/mês')">Contratar agora</button>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <div class="plans-container">
-        <div class="plan-title">100 Slots</div>
-        <div class="plan-price">R$ 7 <span>/ mês</span></div>
-        <ul class="plan-features">
-            <li>Painel SAH</li>
-            <li>Linux .so</li>
-            <li>FTP incluso</li>
-            <li>MySQL incluso</li>
-            <li>Anti-DDoS</li>
-        </ul>
-        <a href="#finalizar" class="btn-order">Contratar agora</a>
+    <!-- Menu Modal -->
+    <div id="menuModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Menu</h3>
+                <button class="close" onclick="toggleMenu()">×</button>
+            </div>
+            <p class="section-title">// PRODUTOS</p>
+            <div class="products">
+                <div class="product">
+                    <div>
+                        <h4>Host SA-MP</h4>
+                        <p style="font-size:12px;color:var(--text-muted)">Hospedagem dedicada para servidores</p>
+                    </div>
+                    <span class="tag tag-disponivel">DISPONÍVEL</span>
+                </div>
+                <div class="product">
+                    <div>
+                        <h4>Revendas</h4>
+                        <p style="font-size:12px;color:var(--text-muted)">Revenda nossos planos e lucre</p>
+                    </div>
+                    <span class="tag tag-breve">EM BREVE</span>
+                </div>
+                <div class="product">
+                    <div>
+                        <h4>Serviço Script</h4>
+                        <p style="font-size:12px;color:var(--text-muted)">Desenvolvimento e instalação</p>
+                    </div>
+                    <span class="tag tag-breve">EM BREVE</span>
+                </div>
+                <div class="product">
+                    <div>
+                        <h4>Game Modes</h4>
+                        <p style="font-size:12px;color:var(--text-muted)">Modos de jogo prontos para uso</p>
+                    </div>
+                    <span class="tag tag-breve">EM BREVE</span>
+                </div>
+            </div>
+            <p class="section-title" style="margin-top:24px">// CONTATO</p>
+            <div class="products">
+                <a href="https://wa.me/5589981092254" target="_blank" class="product" style="text-decoration:none;color:inherit">
+                    <div>
+                        <h4>💬 WhatsApp</h4>
+                        <p style="font-size:12px;color:var(--text-muted)">Fale direto com o suporte</p>
+                    </div>
+                    <span class="tag tag-disponivel">ONLINE</span>
+                </a>
+                <a href="https://discord.gg/Qy3j9MxJ4X" target="_blank" class="product" style="text-decoration:none;color:inherit">
+                    <div>
+                        <h4>🎮 Discord</h4>
+                        <p style="font-size:12px;color:var(--text-muted)">Comunidade e atualizações</p>
+                    </div>
+                    <span class="tag tag-disponivel">ONLINE</span>
+                </a>
+            </div>
+        </div>
     </div>
 
-    <div id="finalizar" class="modal">
-        <h2>Finalizar pedido</h2>
-        <p>Plano selecionado: <span>100 Slots — R$7/mês</span></p>
-
-        <form id="orderForm">
-            <div class="form-group">
-                <label>Seu Nome / Nick</label>
-                <input type="text" id="name" placeholder="Ex: MrRodrigo ou Rodrigo Silva" required>
+    <!-- Pedido Modal -->
+    <div id="pedidoModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Finalizar pedido</h3>
+                <button class="close" onclick="closePedido()">×</button>
             </div>
-
+            <p style="color:var(--text-muted);margin-bottom:20px">Plano selecionado: <span id="planoNome" style="color:var(--green);font-weight:600"></span></p>
+            
             <div class="form-group">
-                <label>Usuário / ID do Discord</label>
-                <input type="text" id="discord" placeholder="Ex: rodrigo_sa" required>
+                <label>SEU NOME / NICK</label>
+                <input type="text" id="nome" placeholder="Ex: MrRodrigo ou Rodrigo Silva">
             </div>
-
+            
             <div class="form-group">
-                <label>Forma de Pagamento</label>
-                <select id="payment" required>
-                    <option value="">Selecione...</option>
-                    <option value="Pix">Pix</option>
+                <label>USUÁRIO / ID DO DISCORD</label>
+                <input type="text" id="discord" placeholder="Ex: rodrigo_sa ou rodrigo#1234">
+            </div>
+            
+            <div class="form-group">
+                <label>FORMA DE PAGAMENTO</label>
+                <select id="pagamento">
+                    <option>Selecione...</option>
+                    <option>PIX</option>
+                    <option>Mercado Pago</option>
+                    <option>PicPay</option>
                 </select>
             </div>
-
+            
             <div class="form-group">
-                <label>Observação (Opcional)</label>
+                <label>OBSERVAÇÃO (OPCIONAL)</label>
                 <textarea id="obs" rows="3" placeholder="Ex: Preciso de suporte para instalar plugin X..."></textarea>
             </div>
-
-            <button type="button" class="btn-submit" onclick="sendToWhatsApp()">
-                📱 Enviar pelo WhatsApp
-            </button>
-        </form>
+            
+            <div class="btn-group" style="margin-top:24px">
+                <button class="btn btn-secondary" onclick="closePedido()" style="flex:1">Cancelar</button>
+                <button class="btn btn-primary" onclick="enviarWhatsApp()" style="flex:1">📱 Enviar pelo WhatsApp</button>
+            </div>
+        </div>
     </div>
 
     <script>
-        function sendToWhatsApp() {
-            // Substitua pelo seu número de WhatsApp real (com DDD e código do país)
-            // Exemplo: 5511999999999
-            const phoneNumber = "5589981092254"; 
-
-            const name = document.getElementById('name').value;
+        let planoSelecionado = '';
+        
+        function toggleMenu() {
+            document.getElementById('menuModal').classList.toggle('active');
+        }
+        
+        function openPedido(plano) {
+            planoSelecionado = plano;
+            document.getElementById('planoNome').textContent = plano;
+            document.getElementById('pedidoModal').classList.add('active');
+        }
+        
+        function closePedido() {
+            document.getElementById('pedidoModal').classList.remove('active');
+        }
+        
+        function enviarWhatsApp() {
+            const nome = document.getElementById('nome').value;
             const discord = document.getElementById('discord').value;
-            const payment = document.getElementById('payment').value;
+            const pagamento = document.getElementById('pagamento').value;
             const obs = document.getElementById('obs').value;
-
-            if(!name || !discord || !payment) {
-                alert("Por favor, preencha todos os campos obrigatórios.");
+            
+            if(!nome || !discord || pagamento === 'Selecione...') {
+                alert('Preencha todos os campos obrigatórios!');
                 return;
             }
-
-            // Monta o texto que vai chegar no seu WhatsApp
-            const message = `*Novo Pedido - Jota Hosting*%0A%0A` +
-                            `*Plano:* 100 Slots - R$7/mês%0A` +
-                            `*Nome/Nick:* ${name}%0A` +
-                            `*Discord:* ${discord}%0A` +
-                            `*Pagamento:* ${payment}%0A` +
-                            `*Observação:* ${obs}`;
-
-            // Abre o WhatsApp com os dados preenchidos
-            window.open(`https://wa.me/${phoneNumber}?text=${message}`, '_blank');
+            
+            let msg = `*Novo Pedido - Jota Hosting*%0A%0A`;
+            msg += `*Plano:* ${planoSelecionado}%0A`;
+            msg += `*Nome:* ${nome}%0A`;
+            msg += `*Discord:* ${discord}%0A`;
+            msg += `*Pagamento:* ${pagamento}%0A`;
+            if(obs) msg += `*Obs:* ${obs}%0A`;
+            
+            window.open(`https://wa.me/5589981092254?text=${msg}`, '_blank');
+            closePedido();
         }
+        
+        // Fechar modal clicando fora
+        document.querySelectorAll('.modal').forEach(modal => {
+            modal.addEventListener('click', (e) => {
+                if(e.target === modal) modal.classList.remove('active');
+            });
+        });
     </script>
-
 </body>
 </html>
 
